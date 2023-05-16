@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int revf(int num){
+        int rev=0;
+        int rem;
+        while(num!=0){
+            rem=num%10;
+            rev=rev*10+rem;
+            num=num/10;
+        }return rev;
+    }
+    bool isSameAfterReversals(int num) {
+        int rev1=revf(num);
+        int rev2=revf(rev1);
+     return rev2==num;
+    }
+};
