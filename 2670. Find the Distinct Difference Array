@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> distinctDifferenceArray(vector<int>& nums) {
+        vector<int>ans(nums.size());
+        set<int>set;
+        int count=0;
+        int count2=0;
+        int index;
+        for(int i=0;i<nums.size();i++){
+           for(int j=i+1;j<nums.size();j++){
+               set.insert(nums[j]);
+           }
+           count=set.size();
+           set.clear();
+           for(int k=0;k<=i;k++){
+               set.insert(nums[k]);
+           }
+           count2=set.size();
+           set.clear();
+           ans[index]=count2-count;
+           index++;
+        }
+        return ans;
+    }
+};
