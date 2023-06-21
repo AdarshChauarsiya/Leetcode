@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int smallestEqual(vector<int>& nums) {
+        vector<int>res;
+        int ans;
+        for(int i=0;i<nums.size();i++){
+            ans=i%10;
+            if(ans==nums[i])
+            res.push_back(i);
+        }if(res.size()==0)
+        return -1;
+        else
+        return res[0];
+    }
+};
