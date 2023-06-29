@@ -1,0 +1,15 @@
+class Solution {
+public:
+    string convertToBase7(int num) {
+        int i=0,ans=0;
+        string res;
+        while(num!=0){
+            int rem=num%7;
+            ans=ans+rem*pow(10,i);
+            num=num/7;
+            i++;
+        }
+        res=to_string(ans);
+        return res;
+    }
+};
