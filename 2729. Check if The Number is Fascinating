@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isFascinating(int n) {
+        string conc=" ";
+        conc=to_string(n)+to_string(2*n)+to_string(3*n);
+        map<char,int>mp;
+        for(auto it:conc)
+        mp[it]++;
+        for(auto it:mp){
+            if(it.first=='0'||it.second>1)
+            return false;
+        }
+        return mp.size()==9;
+    }
+};
