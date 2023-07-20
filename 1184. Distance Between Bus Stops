@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int distanceBetweenBusStops(vector<int>& nums, int start, int destination) {
+        int sum=0;
+        int sum1=0;
+        for(int i=start;i!=destination;i=(i+1)%nums.size()){
+            sum=sum+nums[i];
+        }
+        for(int i=destination;i!=start;i=(i+1)%nums.size()){
+            sum1=sum1+nums[i];
+        }
+        if(sum<sum1){
+            return sum;
+        }else
+        return sum1;
+    }
+};
