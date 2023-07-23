@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<string> splitWordsBySeparator(vector<string>& words, char separator) {
+       vector<string>temp;
+       for(int i=0;i<words.size();i++){
+           string ans="";
+           for(int j=0;j<words[i].length();j++){
+               if(words[i][j]!=separator){
+                   ans=ans+words[i][j];
+                }
+                if((words[i][j]==separator ||j==words[i].length()-1) && ans!=""){
+                    temp.push_back(ans);
+                    ans="";
+                }
+            } 
+    } return temp;
+    }
+};
