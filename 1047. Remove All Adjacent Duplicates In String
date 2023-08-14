@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        stack<char>ans;
+        string res="";
+        for(int i=0;i<s.size();i++){
+            if(!ans.empty()&&ans.top()==s[i]){
+                ans.pop();
+            }else{
+                ans.push(s[i]);
+            }
+        }//convert stack into array or string
+        while(!ans.empty()){
+            res.push_back(ans.top());
+            ans.pop();
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
