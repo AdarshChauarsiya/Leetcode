@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string makeGood(string s) {
+        stack<char>ans;
+        string res="";
+        
+        for(int i=0;i<s.size();i++){
+            if(!ans.empty()&&ans.top()+32==s[i]){//add 32 for ascii value difernce of lower and upper case is 32 in ascii.
+                ans.pop();
+            } else if(!ans.empty()&&ans.top()==s[i]+32){
+                ans.pop();
+            }
+            else{
+                ans.push(s[i]);
+            }
+        }while(!ans.empty()){
+            res.push_back(ans.top());
+            ans.pop();
+        }
+        reverse(res.begin(),res.end());
+        return res;
+    }
+};
