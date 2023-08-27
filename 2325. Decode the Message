@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string decodeMessage(string key, string message) {
+        string s="";
+        string res="";
+        for(int i=0;i<key.size();i++){
+            if(key[i]!=' '&& res.find(key[i]) == string::npos ){
+                res=res+key[i];
+            }
+        }
+        for(int i=0;i<message.size();i++){
+            for(int j=0;j<res.size();j++){
+            if(message[i]==' '){
+            s=s+' ';
+            break;
+            }
+            if(message[i]==res[j]){
+                    char ch='a'+j;
+                    s=s+ch;
+                    break;
+            }
+
+            }
+    }return s;
+    }
+};
