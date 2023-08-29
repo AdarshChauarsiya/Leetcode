@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string capitalizeTitle(string title) {
+        string ans="",res="";
+        char res1,res2;
+        title=title+' ';
+        for(int i=0;i<title.size();i++){
+            if(title[i]==' '){
+                 if(ans.size()==1||ans.size()==2){    
+                    res=res+ans;
+                  }else{
+                for(int j=0;j<ans.size();j++){
+                    if(j==0){
+                        res1=toupper(ans[0]);
+                        res=res+res1;
+                    }
+                    else res=res+ans[j];
+                }
+                  }
+                res=res+' ';
+                ans.clear();
+            }else{
+                res2=tolower(title[i]);
+                ans=ans+res2;
+            }
+        }
+        res.pop_back();
+        return res;
+    }
+};
