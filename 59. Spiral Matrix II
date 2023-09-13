@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>>ans(n,vector<int>(n,0));
+        vector<vector<int>>mat(n,vector<int>(n,0));
+        vector<int>nums;
+        for(int i=1;i<=n*n;i++){
+            nums.push_back(i);
+        }
+        int top=0,left=0,right=n-1,bottom=n-1;
+        int j=0;
+        while(j<nums.size()){ 
+            if(left>right){
+                break;
+            } 
+        for(int i=left;i<=right;i++){
+            ans[top][i]=nums[j++];
+        }top++;
+         if(top>bottom){
+                break;
+            } 
+        for(int i=top;i<=bottom;i++){
+            ans[i][right]=nums[j++];
+        }right--;
+         if(left>right){
+                break;
+            } 
+        for(int i=right;i>=left;i--){
+            ans[bottom][i]=nums[j++];
+        }bottom--;
+         if(top>bottom){
+                break;
+            } 
+        for(int i=bottom;i>=top;i--){
+            ans[i][left]=nums[j++];
+        }left++;
+        }
+        for(int i=0;i<ans.size();i++){
+            for(int j=0;j<ans[0].size();j++){
+                mat[i][j]=ans[i][j];
+            }
+        }
+        return mat;
+    }
+};
