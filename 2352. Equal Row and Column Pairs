@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int equalPairs(vector<vector<int>>& grid) {
+       vector<int>ans,res;
+       int c=0;
+       for(int i=0;i<grid.size();i++){
+           for(int j=0;j<grid[i].size();j++){
+               ans.push_back(grid[i][j]);
+           }
+        for(int s=0;s<grid.size();s++){
+           for(int k=0;k<grid.size();k++){
+                res.push_back(grid[k][s]);
+                 if(ans.size()==res.size()){
+                     if(ans==res) c++;
+               }
+           }res.clear();
+        }
+           ans.clear();
+       }
+       return c; 
+    }
+};
