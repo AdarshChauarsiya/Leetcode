@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> findColumnWidth(vector<vector<int>>& grid) {
+        vector<int>ans;
+        string a;
+        int b;
+        for(int i=0;i<grid[0].size();i++){
+            int max1=0;
+            for(int j=0;j<grid.size();j++){
+                if(grid[j][i]>0){
+                a=to_string(grid[j][i]);
+                b=a.size();
+                }else{
+                    a=to_string(grid[j][i]);
+                    b=a.size();
+                }
+            max1=max(max1,b);
+            }ans.push_back(max1);
+        }
+        return ans;
+    }
+};
