@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string compressedString(string word) {
+        string ans="";
+        int c=0;
+        for(int i=0;i<word.size();i++){
+            c++;
+            if(word[i]==word[i+1]){
+                if(c==9){
+                    ans+=to_string(9);
+                    ans+=word[i];
+                    c=0;
+                }
+            }else{
+                ans+=to_string(c);
+                ans+=word[i];
+                c=0;
+            }
+        }
+        return ans;
+    }
+};
