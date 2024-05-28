@@ -1,0 +1,18 @@
+int solve(int n,vector<int>&dp){
+	    if(n==0) return 0;
+	    int ans=INT_MAX;
+	    if(dp[n]!=-1) return dp[n];
+	    for(int i=1;i*i<=n;i++){
+	        int a=i*i;
+	        ans=min(ans,1+solve(n-a,dp));
+	    }
+	    dp[n]=ans;
+	    return dp[n];
+	}
+	int MinSquares(int n)
+	{
+	    // Code here
+	    vector<int>dp(n+1,-1);
+	    int ans=solve(n,dp);
+	    return ans;
+	}
