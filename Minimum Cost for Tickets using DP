@@ -1,0 +1,23 @@
+class Solution {
+public:
+     int sub(vector<int> &day, vector<int> &cost, int ind,vector<int>&dp){
+        int n = day.size();
+        if(ind>=n)   return 0;
+        if(dp[ind]!=-1) return dp[ind];
+        int op1 = cost[0] + sub(day , cost , ind+1,dp);
+        
+        int i;
+        for(i = ind ; i<n && day[i]<day[ind]+7 ; i++); 
+        int op2 = cost[1] + sub(day, cost, i,dp);
+        
+        for(i = ind ; i<n && day[i]<day[ind]+30 ; i++);
+        int op3 = cost[2] + sub(day, cost, i,dp);   
+        dp[ind]=min(op1,min(op2,op3));
+        return dp[ind];
+    }
+    int mincostTickets(vector<int>& days, vector<int>& costs) { 
+        int n=days.size();
+        vector<int>dp(n+1,-1);   
+        return sub(days,costs,0,dp);
+    }
+};
