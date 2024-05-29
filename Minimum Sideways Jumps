@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solve(vector<int>&o,int currlane,int curpos,vector<vector<int>>&dp){
+        int n=o.size()-1;
+        if(curpos==n) return 0;
+        if(dp[currlane][curpos]!=-1) return dp[currlane][curpos];
+        if(o[curpos+1]!=currlane){
+            return solve(o,currlane,curpos+1,dp);
+        }else{
+            //sideways jump
+            int ans=INT_MAX;
+            for(int i=1;i<=3;i++){
+                if(currlane!=i && o[curpos]!=i)
+                ans=min(ans,1+solve(o,i,curpos,dp));
+            }
+            dp[currlane][curpos]=ans;
+            return dp[currlane][curpos];
+        }
+    }
+    int minSideJumps(vector<int>& obstacles) {
+        int n=obstacles.size();
+        vector<vector<int>>dp(4,vector<int>(n+1,-1));
+        int ans=solve(obstacles,2,0,dp);
+        return ans;
+    }
+};
