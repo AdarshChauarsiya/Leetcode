@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int solve(int ind,int end,vector<int>&s,int n,vector<vector<int>>&dp){
+        if(n==0||ind>end) return 0;
+        if(dp[ind][n]!=-1) return dp[ind][n];
+        int inc=s[ind]+solve(ind+2,end,s,n-1,dp);
+        int exc=0+solve(ind+1,end,s,n,dp);
+        dp[ind][n]=max(inc,exc);
+        return dp[ind][n];
+    }
+    int maxSizeSlices(vector<int>& slices) {
+        int k=slices.size();
+        vector<vector<int>>dp(k,vector<int>(k,-1));
+        vector<vector<int>>dp1(k,vector<int>(k,-1));
+        int f=solve(0,k-2,slices,k/3,dp);
+        int s=solve(1,k-1,slices,k/3,dp1);
+        return max(f,s);
+    }
+};
