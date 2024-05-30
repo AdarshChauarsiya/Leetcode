@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int solve(int n,vector<vector<int>>& cuboids,int curr,int prev,vector<vector<int>>&dp){
+        if(n==curr) return 0;
+        if(dp[curr][prev+1]!=-1) return dp[curr][prev+1];
+        int inc=0;
+        if(prev==-1||(cuboids[prev][0] <= cuboids[curr][0] && cuboids[prev][1] <= cuboids[curr][1] && cuboids[prev][2] <= cuboids[curr][2])){
+            inc=cuboids[curr][2]+solve(n,cuboids,curr+1,curr,dp);
+        }
+        int exc=solve(n,cuboids,curr+1,prev,dp);
+        dp[curr][prev+1]=max(inc,exc);
+        return dp[curr][prev+1];
+    }
+    int maxHeight(vector<vector<int>>& cuboids) {
+        for(auto &i:cuboids){
+            sort(i.begin(),i.end());
+        }
+        sort(cuboids.begin(),cuboids.end());
+        for(int i=0;i<cuboids.size();i++){
+            for(int j=0;j<cuboids[i].size();j++){
+                cout<<cuboids[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+        int n=cuboids.size();
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        int ans=solve(n,cuboids,0,-1,dp);
+        return ans;
+    }
+};
