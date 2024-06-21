@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxSatisfied(vector<int>& c, vector<int>& g, int m) {
+        int n = c.size();
+        int sm=0;
+        for(int i=0;i<n;i++){
+            if(g[i]==0)sm+=c[i];
+        }
+        int i=0,j=0;
+        int ans=sm;
+        int chng=0;
+        while(j<n){
+            if(g[j]==1)chng+=c[j];
+            if(j-i+1<m)j++;
+            else{
+                ans=max(ans,sm+chng);
+                if(g[i]==1)chng-=c[i];
+                i++;
+                j++;
+            }
+        }
+        return ans;
+    }
+};
