@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int numWaterBottles(int numBottles, int numExchange) {
+        int sum=0;
+        int n=numBottles;
+        while(numBottles>=numExchange){
+            int d=numBottles/numExchange;
+            int rem=numBottles%numExchange;
+            sum+=d;
+            numBottles=d+rem;
+        }
+        return sum+n;
+    }
+};
