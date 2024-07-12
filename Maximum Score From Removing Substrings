@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string removeSubString(string s,string subStr,int points,int &total){
+        stack<char>st;
+        int n=s.length();
+        for(int i=0;i<n;i++){
+            if((!st.empty()) && (s[i]==subStr[1]) && (st.top()==subStr[0])){
+                st.pop();
+                total+=points;
+            }
+            else{
+                st.push(s[i]);
+            } 
+        }
+        string remStr="";
+        while(!st.empty()){
+            remStr+=st.top();
+                st.pop();
+            }
+        reverse(remStr.begin(),remStr.end());
+        return remStr;
+    }
+    int maximumGain(string s, int x, int y) {
+        int total=0;
+        if(x>y){
+            s=removeSubString(s,"ab",x,total);
+            s=removeSubString(s,"ba",y,total);
+        }
+        else{
+            s=removeSubString(s,"ba",y,total);
+            s=removeSubString(s,"ab",x,total);
+
+        }
+        return total;
+    }
+};
