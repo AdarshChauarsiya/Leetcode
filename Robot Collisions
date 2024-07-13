@@ -1,0 +1,52 @@
+class Solution {
+public:
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions) {
+        vector<int> ans;
+        vector<pair<int, int>> robo;
+        int n = positions.size();
+        for(int i=0; i<n; i++)
+        {
+            robo.push_back({positions[i], i});
+        }
+        sort(robo.begin(), robo.end());
+        stack<int> st;
+        for(auto& [pos, i]:robo)
+        {
+            if(directions[i] == 'R')
+            {
+                st.push(i);
+            }
+            else{
+                while(!st.empty() && healths[i]>0)
+                {
+                    int temp = st.top();
+                    int diff = healths[temp] - healths[i];
+                    if(diff > 0)
+                    {
+                        healths[temp]--;
+                        healths[i] = 0;
+                    }
+                    else if(diff < 0)
+                    {
+                        healths[temp] = 0;
+                        healths[i]--;
+                        st.pop();
+                    }
+                    else{
+                        healths[temp] = 0;
+                        healths[i] = 0;
+                        st.pop();
+                    }
+                }
+            }
+        }
+        for(int i:healths)
+        {
+            if(i>0)
+            {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};
