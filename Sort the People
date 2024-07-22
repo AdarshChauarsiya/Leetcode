@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
+        vector<string>ans;
+        vector<pair<int,string>>res;
+        for(int i=0;i<names.size();i++){
+            pair<int,string>p={heights[i],names[i]};
+            res.push_back(p);
+        }
+        sort(res.rbegin(),res.rend());
+        for(auto&p:res){
+            cout<<p.first<<" "<<p.second<<endl;
+        }
+        for(auto&p:res){
+            ans.push_back(p.second);
+        }
+        return ans;
+    }
+};
