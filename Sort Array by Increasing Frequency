@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> frequencySort(vector<int>& nums) {
+        map<int,int>mp;
+        vector<vector<int >>ans;
+        vector<int>res;
+        for(int i=0;i<nums.size();i++) mp[nums[i]]++;
+        for(auto i:mp) ans.push_back({i.first,i.second});
+        sort(ans.begin(), ans.end(), [](const vector<int>& a, const vector<int>& b) {
+            if (a[1] == b[1]) {
+                return a[0] > b[0]; // Sort by element in descending order if frequencies are the same
+            }
+        return a[1] < b[1]; // Otherwise, sort by frequency in ascending order
+        });
+        for(int i=0;i<ans.size();i++){
+            cout<<ans[i][0]<<":"<<ans[i][1]<<endl;
+        }
+        for(int i=0;i<ans.size();i++){
+            int j=0;
+            while(j<ans[i][1]){
+                res.push_back(ans[i][0]);
+                j++;
+            }
+        }
+        return res;
+    }
+};
