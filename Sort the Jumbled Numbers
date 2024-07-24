@@ -1,0 +1,37 @@
+class Solution {
+public:
+ int mapValue(int num, const vector<int>& mapping) {
+        int res = 0;
+        int place = 1;
+        if (num == 0) {
+            return mapping[0];
+        }
+        while (num > 0) {
+            int digit = num % 10;
+            res = res + mapping[digit] * place;
+            place *= 10;
+            num /= 10;
+        }
+        return res;
+    }
+    vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
+        vector<pair<int, int>> mappedNums;
+        for (int num : nums) {
+            int mappedValue = mapValue(num, mapping);
+            mappedNums.push_back({mappedValue, num});
+        }
+        for(int i=0;i<mappedNums.size();i++){
+            cout<<mappedNums[i].first<<":"<<mappedNums[i].second<<endl;
+        }
+        sort(mappedNums.begin(), mappedNums.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
+            return a.first < b.first;
+        });
+
+        vector<int> result;
+        for (const auto& p : mappedNums) {
+            result.push_back(p.second);
+        }
+
+        return result;
+    }
+};
