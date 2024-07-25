@@ -1,0 +1,53 @@
+class Solution {
+public:
+        void MergeTwoSortedArray(vector<int>& nums, int left, int mid, int right) {
+        vector<int>sorted;
+       sorted.reserve(right - left + 1);
+        
+        int k = 0;
+        int i = left;
+        int j = mid + 1;
+        
+        while (i <= mid && j <= right) {
+            if (nums[i] < nums[j]) {
+                sorted[k] = nums[i];
+                k++;
+                i++;
+            } else {
+                sorted[k] = nums[j];
+                k++;
+                j++;
+            }
+        }
+        
+        while (i <= mid) {
+            sorted[k] = nums[i];
+            k++;
+            i++;
+        }
+        
+        while (j <= right) {
+            sorted[k] = nums[j];
+            k++;
+            j++;
+        }
+        while (--k >= 0) {
+            nums[right--] = sorted[k];
+        }
+    }
+
+       void MergesortHelper(vector<int>& nums, int i, int j) {
+        if (i== j) {
+            return;
+        }
+        int mid = i + (j - i) / 2;
+        MergesortHelper(nums, i, mid);
+        MergesortHelper(nums, mid + 1, j);
+        MergeTwoSortedArray(nums, i, mid, j);
+       }
+     vector<int> sortArray(vector<int>& nums) {
+         int n=nums.size();
+        MergesortHelper(nums, 0, n - 1);
+        return nums;
+    }
+};
