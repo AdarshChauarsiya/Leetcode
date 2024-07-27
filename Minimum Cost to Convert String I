@@ -1,0 +1,42 @@
+class Solution {
+public:
+    long long minimumCost(string s, string t, vector<char>& a, vector<char>& b, vector<int>& cost) {
+        
+         int n=a.size();
+           vector<vector<long long>> dp(26,vector<long long>(26,1e18));
+         
+          for(int i=0;i<n;i++)
+          {
+              int u=a[i]-'a';
+              int v=b[i]-'a';
+              long long c=cost[i];
+              dp[u][v]=min(c,dp[u][v]);
+              dp[u][u]=0;
+          }
+          for(int k=0;k<26;k++)
+          {
+              for(int i=0;i<26;i++)
+              {
+                  for(int j=0;j<26;j++)
+                  {
+                     if(dp[i][k]!=1e18 && dp[k][j]!=1e18 && dp[i][j]>dp[i][k]+dp[k][j])
+                      dp[i][j]=dp[i][k]+dp[k][j];
+                  }
+              }
+          }
+      long long ans=0;
+      for(int i=0;i<s.size();i++)
+      {
+          int u=s[i]-'a';
+          int v=t[i]-'a';
+          if(u!=v)
+          {
+              if(dp[u][v]>=1e18)
+               return -1;
+             ans+=dp[u][v];
+          }
+      }
+      return ans;
+
+    }
+};
