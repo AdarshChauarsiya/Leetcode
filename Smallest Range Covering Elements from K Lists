@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> smallestRange(vector<vector<int>>& nums) {
+        vector<int>ans(2);//only two value 
+        // store ele,row,col;
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+        int maxi=INT_MIN;
+        int mini;
+        for(int i=0;i<nums.size();i++){
+            pq.push(make_pair(nums[i][0],make_pair(i,0)));
+            maxi=max(maxi,nums[i][0]);
+        }
+        // while(!pq.empty()){
+        //     cout<<"Ele:"<<pq.top().first<<" Row:"<<pq.top().second.first<<" Col:"<<pq.top().second.second<<endl;
+        //     pq.pop();
+        // }
+        mini=pq.top().first;
+        ans[0]=mini;
+        ans[1]=maxi;
+        pair<int,pair<int,int>>p;
+        int row,col,ele;
+        while(pq.size()==nums.size()){
+            p=pq.top();
+            pq.pop();
+            ele=p.first;
+            row=p.second.first;
+            col=p.second.second;
+            if(col+1<nums[row].size()){//size of col to acces
+                col++;
+                pq.push(make_pair(nums[row][col],make_pair(row,col)));
+                maxi=max(maxi,nums[row][col]);
+                mini=pq.top().first;
+                if(maxi-mini<ans[1]-ans[0]){
+                    ans[0]=mini;
+                    ans[1]=maxi;
+                }
+            }
+        }
+        return ans;
+    }
+};
