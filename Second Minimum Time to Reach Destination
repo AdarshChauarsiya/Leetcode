@@ -1,57 +1,62 @@
-class Solution:
+class Solution {
+public:
+    int secondMinimum(int n, vector<vector<int>>& edges, int time, int change) {
+        // Initialising the adjacency list
+        vector<vector<int>> adj(n);
+        for(auto e : edges){
+            adj[e[0]-1].push_back(e[1]-1);
+            adj[e[1]-1].push_back(e[0]-1);
+        }
 
-    def secondMinimum(self, n: int, edges: List[List[int]], time: int, change: int) -> int:
+        /* Forming distance as a pair in which first store smaller distance 
+           and second store larger distance and both distinct*/
+        vector<pair<int, int>> dist(n, {1e9, 1e9});
+        priority_queue<pair<int,int>> pq;
 
-        g = [[] for _ in range(n + 1)]
-
-        for u, v in edges:
-
-            g[u].append(v)
-
-            g[v].append(u)
-
+        dist[0] = {0, 1e9};
+        pq.push({0, 0});
         
+        // ^Normal Dijkstra Initialisation
 
-        q = deque([(1, 1)])
+        // BFS Loop ----> Starts
+        while(!pq.empty()){
+            auto [currTime, node] = pq.top();
+            pq.pop();
+            
+            // As it is max heap we have to store neg. dist for low to high sorting
+            currTime *= -1;
+            if(currTime > dist[node].second)   continue;
 
-        dist1 = [-1] * (n + 1)
+            // If signal is green, reaching another node will take extra 'time' time
+            int newTime = currTime + time;
 
-        dist2 = [-1] * (n + 1)
+            // If signal is red, we have stay to this node till signal is green again
+            int temp = currTime/change;
+            if(temp%2 == 1)     // Condition of Red Signal
+                newTime = (temp+1)*change + time;
 
-        dist1[1] = 0
+            // Traversing adjacent nodes
+            for(auto adjNode : adj[node]){
 
-        while q:
+                // If this newTime is smaller than the smallest distance of adjacent node
+                if(dist[adjNode].first > newTime){
+                    // Assign first value to second and assign first new smaller value
+                    dist[adjNode].second = dist[adjNode].first;
+                    dist[adjNode].first = newTime;
 
-            x, freq = q.popleft()
+                    pq.push({-1*dist[adjNode].first, adjNode});
+                }
+                // Very important condition to ensure distince values in 'dist' vector for particular node.
+                else if(dist[adjNode].first == newTime)
+                    continue;
+                else if(dist[adjNode].second > newTime){
+                    dist[adjNode].second = newTime;
+                    pq.push({-1*dist[adjNode].second, adjNode});
+                }
+            }
+        }
+        // BFS Loop ----> Ends
 
-            t = dist1[x] if freq == 1 else dist2[x]
-
-            if (t // change) % 2:
-
-                t = change * (t // change + 1) + time
-
-            else:
-
-                t += time
-
-            for y in g[x]:
-
-                if dist1[y] == -1:
-
-                    dist1[y] = t
-
-                    q.append((y, 1))
-
-                elif dist2[y] == -1 and dist1[y] != t:
-
-                    if y == n:
-
-                        return t
-
-                    dist2[y] = t
-
-                    q.append((y, 2))
-
-        return 0
-
-        
+        return dist[n-1].second;
+    }
+};
