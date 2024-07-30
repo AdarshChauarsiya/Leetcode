@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int minimumDeletions(string s) {
+        int res=0,c=0;
+        for(char i:s){
+            if(i=='b')c++;
+            else if(c){
+                res++;
+                c--;
+            }
+        }
+        return res;
+    }
+};
