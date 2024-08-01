@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int countSeniors(vector<string>& details) {
+        int c=0;
+        for(auto i:details){
+            int s=i[11]-'0';
+            int s1=i[12]-'0';
+            int res=s*10+s1;
+            if(res>60)c++;
+        }
+        return c;
+    }
+};
