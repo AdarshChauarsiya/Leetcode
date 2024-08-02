@@ -1,0 +1,55 @@
+class node{
+public:
+    node*children[26];
+    bool isterminal=false;
+    int cnt=0;
+    bool notcontain(char ch){
+        return children[ch-'a']==NULL;
+    }
+    void put(char ch,node*tmp){
+        children[ch-'a']=tmp;
+    }
+};
+class trie{
+public:
+    node*root;
+    trie(){
+        root=new node();
+    }
+    void insert(string word){
+        node*tmp=root;
+        for(int i=0;i<word.size();i++){
+            if(tmp->notcontain(word[i])){
+                tmp->put(word[i],new node());
+            }
+            tmp=tmp->children[word[i]-'a'];
+            tmp->cnt++;
+        }
+        tmp->isterminal=true;
+    }
+    int solve(string word){
+        node*tmp=root;
+        int ans=0;
+        for(int i=0;i<word.size();i++){
+            if(!tmp->notcontain(word[i])){
+                tmp=tmp->children[word[i]-'a'];
+                ans+=tmp->cnt;
+            } 
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    vector<int> sumPrefixScores(vector<string>& words) {
+        vector<int>ans(words.size());
+        trie t;
+        for(int i=0;i<words.size();i++){
+            t.insert(words[i]);
+        }
+        for(int i=0;i<words.size();i++){
+            ans[i]=t.solve(words[i]);
+        }
+        return ans;
+    }
+};
