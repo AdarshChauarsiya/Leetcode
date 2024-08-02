@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int minimumLengthEncoding(vector<string>& words) {
+        set<string>st(words.begin(),words.end());
+        for(auto i:words){
+            for(int j=1;j<i.size();j++){
+                cout<<i.substr(j)<<endl;
+                st.erase(i.substr(j));
+            }
+        }
+        int ans=0;
+        for(auto i:st){
+            ans+=i.size()+1;
+        }
+        return ans;
+    }
+};
