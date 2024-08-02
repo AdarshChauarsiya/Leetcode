@@ -1,0 +1,58 @@
+class node{
+public:
+    node*children[26];
+    bool isterminal=false;
+    bool containkey(char c){
+        return children[c-'a']==NULL;
+    }
+    void put(char ch,node*tmp){
+        children[ch-'a']=tmp;
+    }
+};
+class Trie {
+public:
+    node*root;
+    Trie() {
+        root=new node();
+    }
+    void insert(string word) {
+        node*tmp=root;
+        for(int i=0;i<word.size();i++){
+            if((tmp->containkey(word[i]))){//not contain
+                tmp->put(word[i],new node());
+            }
+            tmp=tmp->children[word[i]-'a'];
+        }
+        tmp->isterminal=true;
+    }
+    
+    bool search(string word) {
+        node*tmp=root;
+        for(int i=0;i<word.size();i++){
+            if(tmp->containkey(word[i])){
+                return false;
+            }
+            tmp=tmp->children[word[i]-'a'];
+        }
+        return tmp->isterminal==true;
+    }
+    
+    bool startsWith(string word) {
+        node*tmp=root;
+        for(int i=0;i<word.size();i++){
+            if(tmp->containkey(word[i])){
+                return false;
+            }
+            tmp=tmp->children[word[i]-'a'];
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
