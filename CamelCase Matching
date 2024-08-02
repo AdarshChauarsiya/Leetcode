@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool solve(string s, string p){
+        int j=0;
+        int cap=0;
+        for(int i=0;i<s.size();i++){
+            if(j<p.size()&&p[j]==s[i]){
+                j++;
+            }
+            else if(isupper(s[i])){
+                cap++;
+            }
+        }
+        return j==p.size()&&cap==0;
+    }
+    vector<bool> camelMatch(vector<string>& queries, string pattern) {
+        int n=queries.size();
+        vector<bool>ans(n);
+        for(int i=0;i<queries.size();i++){
+            ans[i]=solve(queries[i],pattern);
+        }
+        return ans;
+    }
+};
