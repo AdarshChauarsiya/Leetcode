@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool solve(int idx,string &s,unordered_set<string>&st,vector<int>&dp){
+        int n=s.size();
+        if(idx>=n)return true;
+        if(st.find(s)!=st.end())return true;
+        if(dp[idx]!=-1)return dp[idx];
+        for(int i=1;i<=n;i++){
+            string temp=s.substr(idx,i);
+            if(st.find(temp)!=st.end()&&solve(idx+i,s,st,dp)){
+                return dp[idx]=true;
+            }
+        }
+        return dp[idx]=false;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string>st(wordDict.begin(),wordDict.end());
+        int n=s.size();
+        vector<int>dp(n,-1);
+        return solve(0,s,st,dp);
+    }
+};
