@@ -1,0 +1,68 @@
+class node{
+public:
+    node*children[26];
+    bool isterminal=false;
+    bool notcontain(char ch){
+      return children[ch-'a']==NULL;
+    }
+    void put(char ch,node*tmp){
+      children[ch-'a']=tmp;
+    }
+};
+class trie{
+public:
+    node*root;
+    trie(){
+      root=new node();
+    }
+    void insert(string word){
+      node*tmp=root;
+      for(int i=0;i<word.size();i++){
+        if(tmp->notcontain(word[i])){
+          tmp->put(word[i],new node());
+        }
+        tmp=tmp->children[word[i]-'a'];
+      }
+      tmp->isterminal=true;
+    }
+    void ischeck(string word,string &largest){
+      node*tmp=root;
+      int c=0;
+      bool res=true;
+      for(int i=0;i<word.size();i++){
+        tmp=tmp->children[word[i]-'a'];
+        if(tmp->isterminal==true)c++;
+        else{
+          res=false;
+          break;
+        }
+      }
+      if(c==word.size()&&res==true){
+        if(largest.size()<word.size()){
+          largest=word;
+        } else if(word.size()==largest.size()){
+          int comp = largest.compare(word);
+              if(comp>0)
+                largest = word;
+            }
+      }
+    }
+};
+class Solution {
+public:
+    string longestWord(vector<string>& a) {
+        string largest="";
+        trie t;
+        string str="apply";
+        int comp = str.compare("apple");
+        cout<<comp;
+        for(int i=0;i<a.size();i++){
+            t.insert(a[i]);
+        }
+        for(int i=0;i<a.size();i++){
+        t.ischeck(a[i],largest);
+        }
+        if(largest.size()!=0)return largest;
+        return "";
+    }
+};
