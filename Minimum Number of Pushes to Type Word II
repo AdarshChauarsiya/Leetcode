@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minimumPushes(string word) {
+        int n=word.size();
+        map<char,int>mp;
+        for(auto i:word)mp[i]++;
+        if(mp.size()<=8)return n;
+        vector<pair<int, char>> freqVec;
+        for (auto i:mp) {
+            freqVec.push_back({i.second, i.first});
+        }
+        sort(freqVec.rbegin(), freqVec.rend());
+        int c=0;
+        for(int i=0;i<freqVec.size();i++){
+            c+=freqVec[i].first*((i/8)+1);
+        }
+        return c;
+    }
+};
