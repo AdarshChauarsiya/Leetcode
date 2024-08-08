@@ -1,0 +1,70 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int rows, int cols, int rStart,
+                                        int cStart) {
+        vector<vector<int>> ans;
+        int currRow = rStart;
+        int currCol = cStart;
+        int right = 1;
+        int bottom = 1;
+        int left = 2;
+        int top = 2;
+        int cnt = rows * cols;
+        ans.push_back({currRow, currCol});
+        cnt--;
+        if (cnt == 0) {
+            return ans;
+        }
+        while (cnt > 0) {
+            for (int i = 1; i <= right; i++) {
+                currCol += 1;
+                if (currRow < rows && currRow >= 0 && currCol < cols &&
+                    currCol >= 0) {
+                    ans.push_back({currRow, currCol});
+                    cnt--;
+                    if (cnt == 0) {
+                        return ans;
+                    }
+                }
+            }
+            right += 2;
+            for (int i = 1; i <= bottom; i++) {
+                currRow += 1;
+                if (currRow < rows && currRow >= 0 && currCol < cols &&
+                    currCol >= 0) {
+                    ans.push_back({currRow, currCol});
+                    cnt--;
+                    if (cnt == 0) {
+                        return ans;
+                    }
+                }
+            }
+            bottom += 2;
+            for (int i = 1; i <= left; i++) {
+                currCol -= 1;
+                if (currRow < rows && currRow >= 0 && currCol < cols &&
+                    currCol >= 0) {
+                    ans.push_back({currRow, currCol});
+                    cnt--;
+                    if (cnt == 0) {
+                        return ans;
+                    }
+                }
+            }
+            left += 2;
+            for (int i = 1; i <= top; i++) {
+                currRow -= 1;
+                if (currRow < rows && currRow >= 0 && currCol < cols &&
+                    currCol >= 0) {
+                    ans.push_back({currRow, currCol});
+                    cnt--;
+                    if (cnt == 0) {
+                        return ans;
+                    }
+                }
+            }
+            top += 2;
+        }
+        return ans;
+    }
+};
