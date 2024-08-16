@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& nums) {
+        int n = nums.size();
+
+        int mini = INT_MAX;
+        int maxi=  INT_MIN;
+
+        int max_ind = 0;
+        int min_ind = 0;
+
+        for(int i = 0; i < n; i++) {
+            int size = nums[i].size();
+            
+            if(nums[i][size-1] >= maxi) {
+                maxi = nums[i][size-1];
+                max_ind = i;
+            }
+            if(nums[i][0] <= mini) {
+                mini = nums[i][0];
+                min_ind = i;
+            }
+        }
+
+        if(min_ind == max_ind) {
+            priority_queue<int> max_pq;
+            priority_queue<int, vector<int>, greater<int>> min_pq;
+
+            for(int i = 0; i < n; i++) {
+                int size = nums[i].size();
+                max_pq.push(nums[i][0]);
+                min_pq.push(nums[i][size-1]);
+
+                if(max_pq.size() > 2) max_pq.pop();
+                if(min_pq.size() > 2) min_pq.pop();
+            }
+
+            return max(abs(min_pq.top() - mini), abs(maxi - max_pq.top()));
+        }
+
+        return abs(maxi - mini);
+    }
+};
