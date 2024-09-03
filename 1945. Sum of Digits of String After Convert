@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int getLucky(string s, int k) {
+        int num=0;
+        string res="";
+        for(int i=0;i<s.size();i++){
+            int ch=s[i]-96;
+            res+=to_string(ch);
+        }
+        while(k--){
+            int ans=0;
+            for(int i=0;i<res.size();i++){
+                int ch=res[i]-'0';
+                ans+=ch;
+            }
+            res=to_string(ans);
+        }
+        int final=stoi(res);
+        return final;
+    }
+};
