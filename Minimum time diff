@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findMinDifference(vector<string>& timePoints) {
+        int n= timePoints.size();
+        vector<int>time(n);
+        sort(timePoints.begin(),timePoints.end());
+        for(int i =0;i<n;i++)
+        {
+            int hr = stoi(timePoints[i].substr(0,2))*60;
+            int min = stoi(timePoints[i].substr(3,5));
+            time[i] = hr+min;
+        }
+        int minim = min(time[n-1]-time[0],24*60-(time[n-1]-time[0]));
+        for(int i =1;i<n;i++)
+        {
+            minim = min(minim,time[i]-time[i-1]);
+            if(minim==0)return 0;
+        }
+        return minim;
+    }
+};
