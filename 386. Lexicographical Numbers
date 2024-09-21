@@ -1,0 +1,56 @@
+class node{
+public:
+    node*children[10];
+    bool isterminal=false;
+    bool containkey(char ch){
+        return children[ch-'0']==NULL;
+    }
+    void put(char ch,node*tmp){
+        children[ch-'0']=tmp;
+    }
+};
+class trie{
+public:
+    node*root;
+    trie(){
+        root=new node();
+    }
+    void insert(string &n){
+        node*tmp=root;
+        for(int i=0;i<n.size();i++){
+            if(tmp->containkey(n[i])){
+                tmp->put(n[i],new node());
+            }
+            tmp=tmp->children[n[i]-'0'];
+        }
+        tmp->isterminal=true;
+    }
+    void printAllWordsUtil(node* currentNode, string currentWord,vector<int>&ans) {
+        if (currentNode->isterminal) {
+            cout << currentWord << endl;
+            int d=stoi(currentWord);
+            ans.push_back(d);
+        }
+        for (char c ='0'; c <='9'; c++) {
+            if (!currentNode->containkey(c)) {
+                printAllWordsUtil(currentNode->children[c-'0'], currentWord + c,ans);
+            }
+        }
+    }
+    void printAllWords(vector<int>&ans) {
+        printAllWordsUtil(root, "",ans);
+    }
+};
+class Solution {
+public:
+    vector<int> lexicalOrder(int n) {
+        vector<int>ans;
+        trie*t=new trie();
+        for(int i=1;i<=n;i++){
+            string s = to_string(i);
+            t->insert(s);
+        }
+        t->printAllWords(ans);
+        return ans;
+    }
+};
