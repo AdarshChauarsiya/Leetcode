@@ -9,7 +9,7 @@ public:
             }else{
                 ans.push(s[i]);
             }
-        }//convert stack into array or string
+        }//convert stack into array or strin
         while(!ans.empty()){
             res.push_back(ans.top());
             ans.pop();
