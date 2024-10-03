@@ -7,6 +7,7 @@ public:
                 if((i/j)<1 && gcd(i,j)<=1){
                     string g=to_string(i)+'/'+to_string(j);
                     ans.push_back(g);
+
                 }
             }
         }return ans;
