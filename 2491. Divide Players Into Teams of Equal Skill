@@ -1,0 +1,20 @@
+class Solution {
+public:
+    long long dividePlayers(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        long long ans=0;
+        int i=0;
+        int j=nums.size()-1;
+        int sum=nums[i]+nums[j];
+        ans=nums[i]*nums[j];
+        i++;
+        j--;
+        while(i<j){
+            if(sum!=nums[i]+nums[j])return -1;
+            ans+=nums[i]*nums[j];
+            i++;
+            j--;
+        }
+        return ans;
+    }
+};
