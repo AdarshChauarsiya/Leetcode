@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int smallestChair(vector<vector<int>>& times, int targetFriend) {
+
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> occupied;
+        priority_queue<int,vector<int>,greater<int>>freeChair;
+
+        int curr_chair = 0;
+        int targetArrival = times[targetFriend][0];
+
+        sort(times.begin(),times.end());
+
+        for(int i=0;i<times.size();i++){
+            
+            int arrival = times[i][0];
+            int depart = times[i][1];
+
+            while(!occupied.empty() && occupied.top().first<=arrival){
+                freeChair.push(occupied.top().second);
+                occupied.pop();
+            }
+
+            if(!freeChair.empty()){
+                int leastChairAval = freeChair.top();
+                freeChair.pop();
+
+                if(arrival == targetArrival)
+                    return leastChairAval;
+
+                occupied.push(make_pair(depart,leastChairAval));
+            }else{
+                if(arrival == targetArrival)
+                    return curr_chair;
+                else
+                    occupied.push(make_pair(depart,curr_chair++));
+            }
+
+        }
+    return 0;
+
+    }
+};
